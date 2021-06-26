@@ -1,5 +1,5 @@
 # music-bot
 
 ## Usage
-pip install - r requirements.txt
-py ytmusic <song name>
+<h3>pip install - r requirements.txt</h3>
+<h3>py ytmusic.py &ltsong name&gt</h3>
