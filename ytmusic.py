@@ -25,21 +25,27 @@ def play():
     }
 
     with YoutubeDL(ydl_opts) as ydl:
-        info=ydl.extract_info("ytsearch:%s lyrics" %" ".join(sys.argv[1:]),download=False)['entries'][0]['formats'][0]['url']
-        id=ydl.extract_info("ytsearch:%s lyrics" %" ".join(sys.argv[1:]),download=False)['entries'][0]['id']
-        duration=ydl.extract_info("https://www.youtube.com/watch?v={sID}".format(sID=id),download=False)['duration']
+        if(sys.argv[1]=="-p"):
+            info=ydl.extract_info("%s"  % " ".join(sys.argv[2:]),download=False)
+            print(info)
+        else:
+            info=ydl.extract_info("ytsearch:%s lyrics" %" ".join(sys.argv[1:]),download=False)['entries'][0]['formats'][0]['url']
+            id=ydl.extract_info("ytsearch:%s lyrics" %" ".join(sys.argv[1:]),download=False)['entries'][0]['id']
+            duration=ydl.extract_info("https://www.youtube.com/watch?v={sID}".format(sID=id),download=False)['duration']
     player = vlc.MediaPlayer(info)
+    # print(duration)
     player.play()
-    time.sleep(duration)
+    time.sleep(100)
+    time.sleep(10)
 
 if __name__ == "__main__":
 
     n = sys.argv[1]
-    t1 = threading.Thread(target=logToMDB)
+    # t1 = threading.Thread(target=logToMDB)
     t2 = threading.Thread(target=play)
 
-    t1.start()
+    # t1.start()
     t2.start()
-    t1.join()
+    # t1.join()
     t2.join()
     print("done")
