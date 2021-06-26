@@ -4,7 +4,7 @@ import threading
 from youtube_dl import YoutubeDL 
 import sys, os
 import pymongo
-
+#Logging into MongoDb
 def logToMDB():
     client = pymongo.MongoClient("mongodb+srv://admin:test@cluster0.mikev.mongodb.net/history?retryWrites=true&w=majority")
     db = client.history.collection1
@@ -16,6 +16,7 @@ def logToMDB():
 
     db.insert_one(logval)
 
+#Function to play song
 def play():
     ydl_opts = {
         'writesubtitles': False,
