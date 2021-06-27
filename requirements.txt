@@ -2,3 +2,4 @@ python-vlc
 youtube-dl
 pymongo
 dnspython
+python-dotenv

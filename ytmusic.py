@@ -4,12 +4,15 @@ import threading
 from youtube_dl import YoutubeDL 
 import sys, os
 import pymongo
+from dotenv import load_dotenv
+load_dotenv('./.env')
 #Logging into MongoDb
 def logToMDB():
     if(sys.argv[1] != '-p' or sys.argv[1] != '-s'):
         return
     isPlaylist = True if (sys.argv[1] == '-p') else False
-    client = pymongo.MongoClient("mongodb+srv://admin:test@cluster0.mikev.mongodb.net/history?retryWrites=true&w=majority")
+    
+    client = pymongo.MongoClient(os.getenv('mongouri'))
     db = client.history.collection1
     if(isPlaylist):
         logval = {
@@ -20,7 +23,7 @@ def logToMDB():
     else :
         logval = {
             "user name": os.getlogin(),
-            "song title": "{}".format(sys.argv[2]),
+            "song title": "{}".format( " ".join(sys.argv[2:])),
             "time": datetime.datetime.now()
         }
 
@@ -60,8 +63,7 @@ def play():
             print("use -p for playlist\nuse -s for song")
 
 if __name__ == "__main__":
-
-    n = sys.argv[1]
+    
     t1 = threading.Thread(target=logToMDB)
     t2 = threading.Thread(target=play)
 
