@@ -6,13 +6,21 @@ import sys, os
 import pymongo
 #Logging into MongoDb
 def logToMDB():
+    isPlaylist = True if (sys.argv[1] == '-p') else False
     client = pymongo.MongoClient("mongodb+srv://admin:test@cluster0.mikev.mongodb.net/history?retryWrites=true&w=majority")
     db = client.history.collection1
-    logval = {
-        "user name": os.getlogin(),
-      "song title": "{}".format(sys.argv[1]),
-      "time": datetime.datetime.now()
-    }
+    if(isPlaylist):
+        logval = {
+            "user name": os.getlogin(),
+            "playlist title": "{}".format(sys.argv[2]),
+            "time": datetime.datetime.now()
+        }
+    else :
+        logval = {
+            "user name": os.getlogin(),
+            "song title": "{}".format(sys.argv[2]),
+            "time": datetime.datetime.now()
+        }
 
     db.insert_one(logval)
 
@@ -51,14 +59,14 @@ def play():
 
 if __name__ == "__main__":
 
-    # n = sys.argv[1]
-    # # t1 = threading.Thread(target=logToMDB)
-    # t2 = threading.Thread(target=play)
+    n = sys.argv[1]
+    t1 = threading.Thread(target=logToMDB)
+    t2 = threading.Thread(target=play)
 
-    # # t1.start()
-    # t2.start()
-    # # t1.join()
-    # t2.join()
-    # print("done")
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    print("done")
     play()
     print("done")
