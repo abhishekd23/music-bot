@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 load_dotenv('./.env')
 #Logging into MongoDb
 def logToMDB():
-    if(sys.argv[1] != '-p' or sys.argv[1] != '-s'):
+    if(sys.argv[1] not in ["-p", "-s","-h"]):
+        print("returned")
+        print(sys.argv[1])
         return
     isPlaylist = True if (sys.argv[1] == '-p') else False
     
@@ -28,6 +30,7 @@ def logToMDB():
         }
 
     db.insert_one(logval)
+    print("inserted to DB")
 
 #Function to play song
 def play():
@@ -63,10 +66,9 @@ def play():
             print("use -p for playlist\nuse -s for song")
 
 if __name__ == "__main__":
-    
+
     t1 = threading.Thread(target=logToMDB)
     t2 = threading.Thread(target=play)
-
     t1.start()
     t2.start()
     t1.join()
