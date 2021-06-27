@@ -6,7 +6,8 @@ import sys, os
 import pymongo
 #Logging into MongoDb
 def logToMDB():
-    if(sys.argv[1] != '-p' or sys.argv[1] != '-s') return
+    if(sys.argv[1] != '-p' or sys.argv[1] != '-s'):
+        return
     isPlaylist = True if (sys.argv[1] == '-p') else False
     client = pymongo.MongoClient("mongodb+srv://admin:test@cluster0.mikev.mongodb.net/history?retryWrites=true&w=majority")
     db = client.history.collection1
@@ -29,7 +30,7 @@ def logToMDB():
 def play():
     ydl_opts = {
         'writesubtitles': False,
-        'format': 'mp4',
+        'format': 'mp3',
         'writethumbnail': False
     }
 
