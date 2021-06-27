@@ -12,7 +12,7 @@ def logToMDB():
     if(isPlaylist):
         logval = {
             "user name": os.getlogin(),
-            "playlist title": "{}".format(sys.argv[2]),
+            "playlist url": "{}".format(sys.argv[2]),
             "time": datetime.datetime.now()
         }
     else :
