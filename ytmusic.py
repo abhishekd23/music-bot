@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv('./.env')
 #Logging into MongoDb
 def logToMDB():
-    if(sys.argv[1] not in ["-p", "-s","-h"]):
+    if(sys.argv[1] not in ["-p", "-s","-d"]):
         return
     isPlaylist = True if (sys.argv[1] == '-p') else False
     client = pymongo.MongoClient(os.getenv('mongouri'))
