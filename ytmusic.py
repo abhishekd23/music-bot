@@ -55,7 +55,7 @@ def play():
             time.sleep(duration)
             player.stop()
         else:
-            print("use -p for playlist\n use -s for song")
+            print("use -p for playlist\nuse -s for song")
 
 if __name__ == "__main__":
 
@@ -67,6 +67,4 @@ if __name__ == "__main__":
     t2.start()
     t1.join()
     t2.join()
-    print("done")
-    play()
     print("done")
