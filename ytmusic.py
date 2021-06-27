@@ -8,10 +8,9 @@ from dotenv import load_dotenv
 load_dotenv('./.env')
 #Logging into MongoDb
 def logToMDB():
-    if(sys.argv[1] != '-p' or sys.argv[1] != '-s'):
+    if(sys.argv[1] not in ["-p", "-s","-h"]):
         return
     isPlaylist = True if (sys.argv[1] == '-p') else False
-    
     client = pymongo.MongoClient(os.getenv('mongouri'))
     db = client.history.collection1
     if(isPlaylist):
@@ -63,10 +62,9 @@ def play():
             print("use -p for playlist\nuse -s for song")
 
 if __name__ == "__main__":
-    
+
     t1 = threading.Thread(target=logToMDB)
     t2 = threading.Thread(target=play)
-
     t1.start()
     t2.start()
     t1.join()
