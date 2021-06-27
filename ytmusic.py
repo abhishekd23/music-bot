@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv('./.env')
 #Logging into MongoDb
 def logToMDB():
-    if(sys.argv[1] not in ["-p", "-s","-h"]):
+    if(sys.argv[1] not in ["-p", "-s","-d"]):
         return
     isPlaylist = True if (sys.argv[1] == '-p') else False
     client = pymongo.MongoClient(os.getenv('mongouri'))
@@ -31,8 +31,9 @@ def logToMDB():
 #Function to play song
 def play():
     ydl_opts = {
+        'outtmpl': './downloads/%(title)s.%(ext)s',
         'writesubtitles': False,
-        'format': 'mp3',
+        'format': 'm4a',
         'writethumbnail': False
     }
 
@@ -57,9 +58,10 @@ def play():
             # print(duration)
             player.play()
             time.sleep(duration)
-            player.stop()
+        elif(sys.argv[1]=="-d"):
+            ydl.extract_info("ytsearch:%s lyrics" %" ".join(sys.argv[2:]),download=True)['entries'][0]['formats'][0]['url']
         else:
-            print("use -p for playlist\nuse -s for song")
+            print("use -p for playlist\nuse -s for song\nuse -d to download song")
 
 if __name__ == "__main__":
 
