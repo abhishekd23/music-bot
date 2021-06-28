@@ -8,4 +8,4 @@
 <h2>To play songs from search</h2>
 <h3>py ytmusic.py -p &ltplaylist url&gt</h3>
 <h2>To download songs</h2>
-<h3>py ytmusic.py -d &ltsong namel&gt</h3>
+<h3>py ytmusic.py -d &ltsong name&gt</h3>
